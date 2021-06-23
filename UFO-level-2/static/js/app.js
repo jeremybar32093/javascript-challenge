@@ -33,7 +33,7 @@ renderData(tableData);
 
 // 5. For event handlers, select form and button html elements
 var button = d3.select("#filter-btn");
-var form = d3.select("form");
+var form = d3.selectAll("form");
 
 // 6. Create event handlers
 // Event listener for clicking "Filter Table" button
