@@ -46,28 +46,41 @@ function runEnter() {
   // Prevent the page from refreshing
   d3.event.preventDefault();
 
-  // Select date value from form input
+  // Select values from each filter input
   var date = d3.select("#datetime").property("value");
+  var city = d3.select("#city").property("value");
+  var state = d3.select("#state").property("value");
+  var country = d3.select("#country").property("value");
+  var shape = d3.select("#shape").property("value");
 
-  console.log(date);
+  // Reset filteredData equal to full dataset 
+  var filteredData = tableData;
 
-  // Apply event listener logic only if date is event is triggered 
-  // If date is non-null, return filtered value based on date input
+  // Clear table rows to reapply filters using clearTableRows() function defined above
+  clearTableRows();
+
+  // Consecutively add filters when non-blank
   if (date) {
-    // Clear out td tags within tbody - call function defined above
-    clearTableRows();
-    // Get filtered data to be rendered
-    var filteredData = tableData.filter((row) => row.datetime === date);
-    console.log(filteredData);
-    // Call renderData function for only filteredData
-    renderData(filteredData);
-  } 
-    // If date is null, rerender full dataset
-    else {
-    // Clear out td tags within tbody - call function defined above
-    clearTableRows();
-    // Rerender original full dataset
-    // Call renderData function with tableData variable defined above
-    renderData(tableData);
+    filteredData = filteredData.filter((row) => row.datetime === date);
   };
+
+  if (city) {
+    filteredData = filteredData.filter((row) => row.city === city);
+  };
+
+  if (state) {
+    filteredData = filteredData.filter((row) => row.state === state);
+  };
+
+  if (country) {
+    filteredData = filteredData.filter((row) => row.country === country);
+  };
+
+  if (shape) {
+    filteredData = filteredData.filter((row) => row.shape === shape);
+  };
+
+  // render data after applying all filters using renderData function defined above
+  renderData(filteredData);
+
 };
